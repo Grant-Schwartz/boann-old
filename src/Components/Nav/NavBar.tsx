@@ -7,7 +7,6 @@ import Project from 'Assets/project.svg';
 import Settings from 'Assets/settings.svg';
 
 export const NavBar: FC = () => {
-    console.log(Logo)
     return (
         <Flex
             justifyContent="space-between"

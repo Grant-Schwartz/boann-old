@@ -1,0 +1,30 @@
+{
+    "projects": [
+        {
+            "projectName": "Test",
+            "projectId": "uuid4",
+            "tags": [
+                {
+                    "tagId": "uuid",
+                    "tagName": "Name",
+                    "tagColor": "hex"
+                }
+            ]
+            "columns": [
+                {
+                    "columnId": "uuid",
+                    "columnName": "Name",
+                    "tasks": [
+                        {
+                            "taskId": "uuid",
+                            "taskName": "Name",
+                            "taskBody": "body",
+                            "dueDate": "date",
+                            "tags": ["Tag"]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

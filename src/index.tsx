@@ -3,15 +3,16 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { ChakraProvider } from "@chakra-ui/react"
 import { extendTheme } from "@chakra-ui/react";
+import { AuthProvider } from 'Utils/Auth';
 
 const colors = {
   brand: {
-    900: "#13284F",
-    800: "#274682",
-    700: "#4169B5",
-    600: "#6190E8",
-    500: "#ACC8FC",
-    400: "#F0F5FF"
+    800: "#13284F",
+    700: "#274682",
+    600: "#4169B5",
+    500: "#6190E8",
+    400: "#ACC8FC",
+    300: "#F0F5FF"
   },
 }
 
@@ -28,7 +29,13 @@ const components = {
   },
   Text: {
     baseStyle: {
-      letterSpacing: "0.03em"
+      letterSpacing: "0.03em",
+      color: 'gray.500'
+    }
+  },
+  Input: {
+    baseStyle: {
+      borderColor: "brand.500"
     }
   }
 }

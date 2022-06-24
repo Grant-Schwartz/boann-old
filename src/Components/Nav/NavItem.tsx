@@ -21,6 +21,8 @@ export const NavItem: FC<NavItemProps> = ({ icon, link, children }) => {
             alignContent="center"
             justifyContent="center"
             borderRadius="6px"
+            _hover={{ bg: 'gray.300' }}
+            transition="background-color 0.1s linear"
         >
             <RouteLink to={link}>
                 {icon ?  <Image src={icon} marginTop="7px"/> : null}

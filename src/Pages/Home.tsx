@@ -1,13 +1,15 @@
-import { Heading } from "@chakra-ui/react";
+import { Box, Heading, Flex } from "@chakra-ui/react";
 import { FC } from "react";
 
 
 export const Home: FC = () => {
     return (
-        <div>
-            <Heading>
-                Home
-            </Heading>
-        </div>
+        <Box>
+            <Flex>
+                <Heading>
+                    Home
+                </Heading>
+            </Flex>
+        </Box>
     );
 }

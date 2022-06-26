@@ -1,6 +1,6 @@
 import { Box, Heading, Flex, Button, SimpleGrid } from "@chakra-ui/react";
 import { FC } from "react";
-import useAuth from "Utils/Auth";
+import { useSignOut } from "react-supabase";
 
 const ProjectGrid: FC = () => {
 	return (
@@ -11,7 +11,12 @@ const ProjectGrid: FC = () => {
 }
 
 export const Projects: FC = () => {
-	const { user, logout } = useAuth();
+	// eslint-disable-next-line
+	const [{ error }, signOut] = useSignOut()
+	async function onClickSignOut() {
+		const { error } = await signOut()
+		console.log(error)
+	}
 	return (
 		<Box
 			margin="20px"
@@ -25,9 +30,7 @@ export const Projects: FC = () => {
 				>
 					New Board
 				</Button>
-				<Button
-					onClick={logout}
-				>
+				<Button onClick={onClickSignOut}>
 					Logout
 				</Button>
 			</Flex>

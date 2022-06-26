@@ -1,15 +1,41 @@
 import { Box, Button, Center, Flex, FormControl, FormHelperText, FormLabel, Heading, Input, Text } from '@chakra-ui/react';
 import { useState, FC, MouseEvent } from 'react'
-import useAuth, { isEmail } from 'Utils/Auth';
+import { useSignIn } from 'react-supabase';
+import { isEmail, UserResponse } from 'Utils/Auth';
 
 
 export const SignIn: FC = () => {
     const [email, setEmail] = useState<string>('')
-    const { login, loading, response } = useAuth();
+    const [loading, setLoading] = useState<boolean>(false);
+    const [response, setResponse] = useState<UserResponse>()
+    // eslint-disable-next-line
+    const [ { user }, signIn] = useSignIn()
+
     const handleLogin = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        login(email);
-      }
+        if (isEmail(email) === false) {
+            setResponse({
+                error: true,
+                message: 'Please enter a valid email.'
+            });
+        } else {
+            setLoading(true);
+            const { error } = await signIn({ email });
+            if (error) {
+                setResponse({
+                    error: true,
+                    message: error.message
+                });
+            } else {
+                setResponse({
+                    error: false,
+                    message: 'A login email was succesfully sent to your email'
+                });
+            }
+            setLoading(false);
+        }
+        
+    }
     return (
         <Box
 			margin="20px"

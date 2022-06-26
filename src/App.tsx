@@ -8,34 +8,47 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import useAuth, { AuthProvider } from "Utils/Auth";
+import { Provider } from "react-supabase";
+import { supabase } from "Utils/Supabase";
+import { AuthProvider, useAuth } from "Utils/Auth";
 
 interface RouteProps {
   children?: JSX.Element;
 }
 
-const ProtectedRoute = ({ children }: RouteProps): any => {
-  const { user, loading } = useAuth();
-  console.log(loading)
-  if (!user) {
-    return <Navigate to="/signin" replace />;
-  }
+const ProtectedRoute = ({ children }: RouteProps) => {
+  const { session } = useAuth()
+  if ( !session ) return <Navigate to="/signin" replace/>;
+  return (
+    <div>
+      {children}
+    </div>
+  );
+}
 
-  return children;
-};
+const PreRoute = ({ children }: RouteProps) => {
+  const { session } = useAuth()
+  if ( session ) return <Navigate to="/projects" replace/>;
+  return (
+    <div>
+      {children}
+    </div>
+  );
+}
 
 function App() {
   return (
     <Router>
-      <AuthProvider>
-
-      <NavBar />
-      <Routes>
-        <Route path="/projects" element={<ProtectedRoute><Projects /></ProtectedRoute>} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
-      </AuthProvider>
+      <Provider value={supabase}>
+        <AuthProvider>
+          <NavBar />
+          <Routes>
+            <Route path="/projects" element={<ProtectedRoute><Projects /></ProtectedRoute>} />
+            <Route path="/signin" element={<PreRoute><SignIn /></PreRoute>} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </AuthProvider>
+      </Provider>
     </Router>
   );
 }

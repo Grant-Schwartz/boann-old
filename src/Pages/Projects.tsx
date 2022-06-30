@@ -12,26 +12,21 @@ const ProjectGrid: FC = () => {
 
 export const Projects: FC = () => {
 	// eslint-disable-next-line
-	const [{ error }, signOut] = useSignOut()
-	async function onClickSignOut() {
-		const { error } = await signOut()
-		console.log(error)
-	}
+
 	return (
 		<Box
-			margin="20px"
+			marginLeft="25px"
+			marginRight="25px"
+			marginTop="20px"
 		>
 			<Flex justifyContent="space-between">
 				<Heading>
-					My Boards
+					My Projects
 				</Heading>
 				<Button
 					colorScheme="brand"
 				>
-					New Board
-				</Button>
-				<Button onClick={onClickSignOut}>
-					Logout
+					New Project
 				</Button>
 			</Flex>
 			<ProjectGrid />

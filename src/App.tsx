@@ -43,7 +43,7 @@ function App() {
         <AuthProvider>
           <NavBar />
           <Routes>
-            <Route path="/projects" element={<ProtectedRoute><Projects /></ProtectedRoute>} />
+            <Route path="/projects" element={<Projects />} />
             <Route path="/signin" element={<PreRoute><SignIn /></PreRoute>} />
             <Route path="/" element={<Home />} />
           </Routes>

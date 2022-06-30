@@ -36,7 +36,7 @@ const components = {
     baseStyle: {
       borderColor: "brand.500"
     }
-  }
+  },
 }
 
 const theme = extendTheme({ colors, fonts, components });

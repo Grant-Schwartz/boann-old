@@ -11,6 +11,7 @@ import {
 import { Provider } from "react-supabase";
 import { supabase } from "Utils/Supabase";
 import { AuthProvider, useAuth } from "Utils/Auth";
+import { SignOut } from "Pages/SignOut";
 
 interface RouteProps {
   children?: JSX.Element;
@@ -43,9 +44,10 @@ function App() {
         <AuthProvider>
           <NavBar />
           <Routes>
-            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects" element={<ProtectedRoute><Projects /></ProtectedRoute>} />
             <Route path="/signin" element={<PreRoute><SignIn /></PreRoute>} />
-            <Route path="/" element={<Home />} />
+            <Route path="/signout" element={<ProtectedRoute><SignOut /></ProtectedRoute>} />
+            <Route path="/" element={<PreRoute><Home /></PreRoute>} />
           </Routes>
         </AuthProvider>
       </Provider>

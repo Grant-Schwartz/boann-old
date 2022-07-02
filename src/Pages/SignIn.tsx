@@ -3,14 +3,12 @@ import { useState, FC, MouseEvent } from 'react'
 import { useSignIn } from 'react-supabase';
 import { isEmail, UserResponse } from 'Utils/Auth';
 
-
 export const SignIn: FC = () => {
     const [email, setEmail] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false);
     const [response, setResponse] = useState<UserResponse>()
     // eslint-disable-next-line
     const [ { user }, signIn] = useSignIn()
-
     const handleLogin = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         if (isEmail(email) === false) {

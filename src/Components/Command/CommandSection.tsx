@@ -1,6 +1,7 @@
-import { FC } from "react";
-import { Box,  Flex, HStack, Text, Image, ComponentWithAs, IconProps, Icon, Code, Button } from "@chakra-ui/react";
-import { Link } from 'react-router-dom';
+import { Box,  Flex, HStack, Text, ComponentWithAs, IconProps, Icon, Code } from "@chakra-ui/react";
+import { Link, useNavigate } from 'react-router-dom';
+import { FC, useEffect } from "react";
+import { useKeyPress } from "Utils/KeyPress";
 
 interface Command {
     icon: ComponentWithAs<"svg", IconProps>;
@@ -12,13 +13,26 @@ interface Command {
     setCommandOpen?: (active: boolean) => void;
 }
 
-interface CommandSection {
+export interface CommandSectionPropsWithState {
     sectionName: string;
     items: Command[]; 
     setCommandOpen: (active: boolean) => void;
 }
 
+
 function CommandItem({ icon, label, url, onClick, command, color, setCommandOpen }: Command) {
+    let navigate = useNavigate();
+    const pressed = useKeyPress(command);
+    useEffect(() => {
+        if (pressed && url && setCommandOpen) {
+            navigate(url);
+            setCommandOpen(false);
+        }
+        if (pressed && onClick && setCommandOpen) {
+            onClick();
+            setCommandOpen(false);
+        }
+    }, [pressed]);
     return (
         url ? 
         <Flex 
@@ -59,7 +73,7 @@ function CommandItem({ icon, label, url, onClick, command, color, setCommandOpen
     );
 }
 
-export const CommandSection: FC<CommandSection> = ({ sectionName, items, setCommandOpen }) => {
+export const CommandSection: FC<CommandSectionPropsWithState> = ({ sectionName, items, setCommandOpen }) => {
     return (
         <Box
             marginTop="10px"

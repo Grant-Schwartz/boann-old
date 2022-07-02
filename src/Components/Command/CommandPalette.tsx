@@ -1,12 +1,12 @@
-import { Divider, Flex, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from "@chakra-ui/react";
-import { StarIcon, AddIcon, LockIcon, SettingsIcon } from '@chakra-ui/icons';
-import { FC, useState } from "react";
+import { Modal, ModalBody, ModalContent, ModalOverlay } from "@chakra-ui/react";
+import { FC } from "react";
+import { CommandSectionProps } from "./Commands";
 import { CommandSection } from "./CommandSection";
-import { useSignOut } from "react-supabase";
 
 interface CommandPaletteProps {
     isOpen: boolean;
     onClose: () => void;
+    commands:  CommandSectionProps[];
     setCommandOpen: (active: boolean) => void;
 }
 
@@ -17,50 +17,7 @@ const CommandPaletteOverlay = () => (
     />
   )
 
-export const CommandPalette: FC<CommandPaletteProps> = ({isOpen, onClose, setCommandOpen}) => {
-    const [{ error }, signOut] = useSignOut()
-    const [search, setSearch] = useState<string>();
-	async function onClickSignOut() {
-		const { error } = await signOut()
-		console.log(error)
-	}
-    const commands = [
-        {
-            sectionName: 'Projects',
-            items: [
-                {
-                    icon: StarIcon,
-                    label: 'My Projects',
-                    url: '/projects',
-                    command: 'p',
-                    color: 'blue'
-                },
-                {
-                    icon: AddIcon,
-                    label: 'New Project',
-                    url: '/new',
-                    command: 'n',
-                    color: 'green'
-                }
-            ]
-        },
-        {
-            sectionName: 'Account',
-            items: [
-                {
-                    icon: SettingsIcon,
-                    label: 'Settings',
-                    url: '/settings',
-                },
-                {
-                    icon: LockIcon,
-                    label: 'Logout',
-                    onClick: signOut,
-                    command: 'l'
-                },
-            ]
-        }
-    ]
+export const CommandPalette: FC<CommandPaletteProps> = ({isOpen, onClose, setCommandOpen, commands}) => {
     return (
         <Modal isCentered isOpen={isOpen} onClose={onClose} >
             <CommandPaletteOverlay />
@@ -74,20 +31,9 @@ export const CommandPalette: FC<CommandPaletteProps> = ({isOpen, onClose, setCom
                     w="100"
                 >
                     <>
-                    <Input 
-                        placeholder="What would you like to do?" 
-                        border="none"
-                        focusBorderColor="#fff"
-                        marginBottom="3px"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    /> 
-                    <Divider />
-                    <>
-                    {commands.map((section, index) => (
+                    {commands ? commands.map((section, index) => (
                         <CommandSection key={index} sectionName={section.sectionName} items={section.items} setCommandOpen={setCommandOpen}/>
-                    ))}
-                    </>
+                    )) : null}
                     </>
                 </ModalBody>
             </ModalContent>

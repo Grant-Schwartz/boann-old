@@ -1,24 +1,32 @@
 import { Flex, HStack, Image } from '@chakra-ui/react';
-import { FC, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { NavItem } from './NavItem';
 import Logo from 'Assets/logo.svg';
-import Project from 'Assets/project.svg';
 import Command from 'Assets/command.svg';
-import { useAuth } from 'Utils/Auth';
 import { CommandPalette } from 'Components/Command/CommandPalette';
 import Hotkeys from 'react-hot-keys';
+import { preLoginCommands, projectsCommands } from 'Components/Command/Commands';
+import { CommandSectionProps } from 'Components/Command/Commands';
 
-export const NavBar: FC = () => {
-    const { session } = useAuth();
+export const NavBar = () => {
     const [commandOpen, setCommandOpen] = useState<boolean>(false);
+    const [commands, setCommands] = useState<CommandSectionProps[]>(preLoginCommands)
+    const location = useLocation();
+    useEffect(() => {
+        if (location.pathname === '/projects') {
+            setCommands(projectsCommands);
+        } else {
+            setCommands(preLoginCommands)
+        }
+    }, [location]);
     return (
         <>
             <Hotkeys
                 keyName="command+/"
                 onKeyDown={() => setCommandOpen(!commandOpen)}
             >
-                <CommandPalette isOpen={commandOpen} onClose={() => setCommandOpen(false)} setCommandOpen={setCommandOpen} />
+                <CommandPalette isOpen={commandOpen} onClose={() => setCommandOpen(false)} setCommandOpen={setCommandOpen} commands={commands} />
             </Hotkeys>
             <Flex
                 justifyContent="space-between"
@@ -30,9 +38,7 @@ export const NavBar: FC = () => {
                         <Image src={Logo} />
                     </Link>
                 </HStack>
-                {/* {session ? */}
                 <HStack marginRight="30px">
-                    <NavItem link="/projects" icon={Project} />
                     <NavItem onClick={setCommandOpen} icon={Command} />
                 </HStack>
                 {/* : null} */}

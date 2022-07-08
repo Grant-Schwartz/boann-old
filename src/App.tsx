@@ -12,9 +12,11 @@ import { Provider } from "react-supabase";
 import { supabase } from "Utils/Supabase";
 import { AuthProvider, useAuth } from "Utils/Auth";
 import { SignOut } from "Pages/SignOut";
+import { NewProject } from "Pages/NewProject";
+import { Project } from "Pages/Project";
 
 interface RouteProps {
-  children?: JSX.Element;
+  children?: JSX.Element | JSX.Element[];
 }
 
 const ProtectedRoute = ({ children }: RouteProps) => {
@@ -45,6 +47,8 @@ function App() {
           <NavBar />
           <Routes>
             <Route path="/projects" element={<ProtectedRoute><Projects /></ProtectedRoute>} />
+            <Route path="/projects/new" element={<ProtectedRoute><NewProject /><Projects /></ProtectedRoute>} />
+            <Route path="/projects/:projectId" element={<ProtectedRoute><Project /></ProtectedRoute>} />
             <Route path="/signin" element={<PreRoute><SignIn /></PreRoute>} />
             <Route path="/signout" element={<ProtectedRoute><SignOut /></ProtectedRoute>} />
             <Route path="/" element={<PreRoute><Home /></PreRoute>} />

@@ -29,7 +29,7 @@ export const projectsCommands: CommandSectionProps[] = [
             {
                 icon: AddIcon,
                 label: 'New Project',
-                url: '/new',
+                url: '/projects/new',
                 command: 'n',
                 color: 'green'
             }

@@ -1,4 +1,4 @@
-import { AddIcon, InfoOutlineIcon, LockIcon, SettingsIcon, StarIcon, UnlockIcon } from "@chakra-ui/icons";
+import { AddIcon, AttachmentIcon, DragHandleIcon, InfoOutlineIcon, LockIcon, SettingsIcon, StarIcon, UnlockIcon } from "@chakra-ui/icons";
 import { ComponentWithAs, IconProps } from "@chakra-ui/react";
 
 interface Command {
@@ -32,6 +32,60 @@ export const projectsCommands: CommandSectionProps[] = [
                 url: '/projects/new',
                 command: 'n',
                 color: 'green'
+            }
+        ]
+    },
+    {
+        sectionName: 'Account',
+        items: [
+            {
+                icon: SettingsIcon,
+                label: 'Settings',
+                url: '/settings',
+            },
+            {
+                icon: LockIcon,
+                label: 'Logout',
+                url: '/signout',
+                command: 'l'
+            },
+        ]
+    }
+]
+
+export const projectCommands: CommandSectionProps[] = [
+    {
+        sectionName: 'Project',
+        items: [
+            {
+                icon: AddIcon,
+                label: 'New Task',
+                command: 't',
+                color: 'red'
+            },
+            {
+                icon: DragHandleIcon,
+                label: 'New Column',
+                command: 'c',
+                color: 'green'
+            },
+            {
+                icon: AttachmentIcon,
+                label: 'New Tag',
+                color: 'orange'
+            }
+
+        ]
+    },
+    {
+        sectionName: 'Projects',
+        items: [
+            {
+                icon: StarIcon,
+                label: 'My Projects',
+                url: '/projects',
+                command: 'p',
+                color: 'blue'
             }
         ]
     },

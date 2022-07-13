@@ -6,7 +6,7 @@ import Logo from 'Assets/logo.svg';
 import Command from 'Assets/command.svg';
 import { CommandPalette } from 'Components/Command/CommandPalette';
 import Hotkeys from 'react-hot-keys';
-import { preLoginCommands, projectsCommands } from 'Components/Command/Commands';
+import { preLoginCommands, projectCommands, projectsCommands } from 'Components/Command/Commands';
 import { CommandSectionProps } from 'Components/Command/Commands';
 
 export const NavBar = () => {
@@ -16,7 +16,11 @@ export const NavBar = () => {
     useEffect(() => {
         if (location.pathname === '/projects') {
             setCommands(projectsCommands);
-        } else {
+        }
+        else if (location.pathname.split('/').length >= 3 && location.pathname.split('/')[1] === 'projects') {
+            setCommands(projectCommands)
+        }
+        else {
             setCommands(preLoginCommands)
         }
     }, [location]);

@@ -48,7 +48,7 @@ function App() {
           <Routes>
             <Route path="/projects" element={<ProtectedRoute><Projects /></ProtectedRoute>} />
             <Route path="/projects/new" element={<ProtectedRoute><NewProject /><Projects /></ProtectedRoute>} />
-            <Route path="/projects/:projectId" element={<ProtectedRoute><Project /></ProtectedRoute>} />
+            <Route path="/project/:projectId" element={<ProtectedRoute><Project /></ProtectedRoute>} />
             <Route path="/signin" element={<PreRoute><SignIn /></PreRoute>} />
             <Route path="/signout" element={<ProtectedRoute><SignOut /></ProtectedRoute>} />
             <Route path="/" element={<PreRoute><Home /></PreRoute>} />

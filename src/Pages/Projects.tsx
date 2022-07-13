@@ -14,7 +14,7 @@ const IconHover = {
 const ProjectCard = (project: any) => {
 	const navigate = useNavigate(); 
 	return (
-		<Box as={motion.div} onClick={() => navigate(`/projects/${project.project.id}`)} height="100px" whileHover="hover" backgroundColor="gray.100" borderRadius="6px" borderWidth="1px" borderColor="gray.300">
+		<Box as={motion.div} onClick={() => navigate(`/project/${project.project.id}`)} height="100px" whileHover="hover" backgroundColor="gray.100" borderRadius="6px" borderWidth="1px" borderColor="gray.300">
 			<Flex alignItems="center">
 				<Heading margin="10px" color="gray.600" size="lg">{project.project.name}</Heading>
 				<motion.div variants={IconHover}>
